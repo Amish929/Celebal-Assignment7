@@ -1,0 +1,101 @@
+Task: Use work items in pipelines.
+
+✅ What Are Work Items?
+Work items in Azure Boards represent:
+
+📝 User stories
+
+🛠️ Tasks
+
+🐞 Bugs
+
+📦 Features
+
+These are trackable units of work that can be linked to:
+
+Commits
+
+Branches
+
+Pull Requests
+
+Pipelines (builds/releases)
+
+🔹 PART 1: Create a Work Item
+Go to your Azure DevOps Project
+
+Navigate to Boards > Work Items
+
+Click + New Work Item
+
+Choose Task or User Story
+
+Fill in details:
+
+Title: Implement login feature
+
+Assign to: yourself
+
+Area path: leave as default
+
+Click Save
+
+✅ STEP 1: Create a Work Item
+If not done already:
+
+Go to Boards > Work Items
+
+Click + New Work Item → choose Task (or User Story/Bug)
+
+Fill in:
+
+Title: e.g., Login feature
+
+Assign to: yourself
+
+Click Save
+
+Note the ID (e.g., #42)
+
+✅ STEP 2: Make a Code Change in Azure Repos UI
+Go to Repos > Files
+
+Select any file (or create a new one)
+
+Click the Edit (✏️) icon
+
+Add a comment like: By Amish Agarwal
+
+Scroll to Commit message section
+
+Add a commit message with work item ID:
+✅ Make sure to include #42 — your work item ID
+✅ You can also use Related #42 if you don’t want to auto-close it
+
+Click Commit
+
+✅ STEP 3: Wait for Pipeline to Run
+If you have a CI trigger (like trigger: master), the pipeline will run automatically.
+
+✅ STEP 4: View Linked Work Item in Pipeline Run
+Go to Pipelines > Pipelines
+
+Click on your latest pipeline run
+
+In the Summary tab, scroll down to find:Associated work items
+
+✅ You should see:#42 - Login feature
+
+🔹 PART 3: Verify Work Item Link in Pipeline Run
+Once code is pushed:
+
+Go to Pipelines > Pipelines
+
+Your pipeline should auto-trigger (CI)
+
+Click the latest run
+
+In the Summary, scroll down to “Associated work items”
+
+✅ You’ll see #42 – Implement login feature linked to the pipeline run.
+

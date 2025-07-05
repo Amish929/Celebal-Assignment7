@@ -1,0 +1,136 @@
+Task: Apply triggers in build and release.
+🎯 Objective:
+
+✅ Auto-trigger a build when code is pushed to a specific branch (CI trigger)
+
+✅ Auto-trigger a release when build completes successfully (CD trigger)
+
+
+ Self-Hosted Agent (on your local Windows PC)
+
+🛠️ STEP-BY-STEP: Set Up a Self-Hosted Agent on Windows
+🔹 1. Go to Azure DevOps > Agent Pools
+Visit: https://dev.azure.com
+
+Go to your Project
+
+Click on Project Settings (bottom-left corner)
+
+Under Pipelines, click Agent Pools
+
+Click on Default (or create a new pool if you want)
+
+
+🔹 2. Click “New Agent” Button
+On the top right, click "New Agent"
+
+Choose:
+
+OS: Windows
+
+Click Download to get the agent ZIP file
+
+🔹 3. Extract and Configure the Agent
+Extract the ZIP to a folder like:C:\azagent
+
+Open Command Prompt as Administrator
+
+Navigate to the agent folder:cd C:\azagent
+
+Run the configuration script:config.cmd
+
+When prompted:
+Server URL:https://dev.azure.com/YOUR_ORG/
+
+PAT (Personal Access Token):
+👉 Follow the prompt to create a PAT from Azure DevOps with Agent Pools (Read & manage) permission
+
+Agent Name: Keep default or name it like mywindowsagent
+
+Work folder: Default is fine
+
+🔹 4. Run the Agent
+After setup:run.cmd
+
+💡 Leave this window open — it will now receive jobs from your Azure pipeline.
+
+🔹 5. Update Your YAML to Use Self-Hosted Agent
+Edit your YAML pipeline to use your new agent:
+trigger:
+  branches:
+    include:
+      - master
+
+pool:
+  name: Default  # your self-hosted agent pool
+
+stages:
+- stage: Build
+  jobs:
+  - job: BuildJob
+    steps:
+    - script: echo "✅ Code built successfully"
+
+- stage: Release
+  dependsOn: Build
+  jobs:
+  - deployment: ReleaseToProd
+    environment: 'production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo "🚀 Release deployed"
+
+
+🔧 PART 1: Apply Build Trigger (CI)
+This is done using the trigger block in your azure-pipelines.yml.
+
+✅ Step 1: Open Your Azure Pipeline
+Go to https://dev.azure.com
+
+Select your Project
+
+Go to Pipelines > Pipelines
+
+Click your pipeline → Edit
+
+
+✅ Step 2: Add CI Trigger in YAML
+    Update the top of your YAML file like this:
+trigger:
+  branches:
+    include:
+      - master
+
+📌 This will automatically trigger the build whenever you push to the master branch.
+✅ Step 3: Save and Test CI Trigger
+Click “Save and Run”
+
+Then make a small code change in the repo (e.g., edit README.md)
+
+Commit and push to the master branch
+
+✅ Build will start automatically!
+
+🔧 PART 2: Apply Release Trigger (CD) Using Environments
+We’ll use Environments + Approvals to simulate a release pipeline.
+
+✅ Step 4: Create Environment for Release
+Go to Pipelines > Environments
+
+Click + New environment
+
+Name it:production
+
+Click Create
+✅ Step 5: Add Release Stage to YAML.
+
+📌 This makes the Release stage auto-trigger after the build completes successfully — which is your CD trigger.
+
+🔹 6. Save and Run Your Pipeline
+Go to Pipelines > Pipelines
+
+Edit and click Save and Run
+
+Your self-hosted agent will now pick up the job and execute it!

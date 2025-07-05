@@ -1,0 +1,33 @@
+Task: Apply gates to the pipeline.
+
+✅ STEP 1: Create an Environment
+Go to your Azure DevOps project
+🔗 https://dev.azure.com
+
+In the left menu, click:
+Pipelines > Environments
+
+Click + New environment
+
+Name it something like:production
+
+Click Create
+
+✅ STEP 2: Add an Approval Gate (Check) to the Environment
+After the environment is created, click its name (e.g., production)
+
+On the top right, click “...” (More options) > Approvals and checks
+
+Click + Add check → Select Approvals
+
+Add your own user (your name/email) as an approver
+✅ You can also add others if needed
+
+Click Create and then Save
+
+📌 Now your environment has a gate! Before any pipeline stage runs that uses this environment, it will pause and wait for approval.
+
+✅ Result:
+The Release stage in your YAML pipeline will now pause and wait for your approval
+
+Go to Pipelines > Environments > prod to Approve when needed

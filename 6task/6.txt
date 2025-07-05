@@ -1,0 +1,67 @@
+Task: Apply branch policy, Apply branch security.
+
+🎯 Objective
+| Task                | What it does                                              |
+| ------------------- | --------------------------------------------------------- |
+| Branch Policy   | Controls how code is merged (e.g., reviews, builds, etc.) |
+| Branch Security | Controls who can push, force-push, or create branches     |
+
+🛠️ Part 1: Apply Branch Policy
+  🔹 Step 1: Open Azure DevOps Project
+  Go to https://dev.azure.com
+
+  Select your organization and project
+
+  Go to Repos > Branches
+
+🔹 Step 2: Set a Branch Policy
+Find the master (or main) branch
+
+Click the ⋮ (three dots) → Choose Branch Policies
+
+🔹 Step 3: Configure Policies
+Set the following recommended policies:
+| Policy                                    | Action to Take                                 |
+| ----------------------------------------- | ---------------------------------------------- |
+| Require a minimum number of reviewers | ✅ Enable, set to `1` or `2`                    |
+| Check for linked work items           | ✅ Enable (optional)                            |
+| Limit merge types                     | ✅ Squash or Rebase only                        |
+| Build Validation                      | ✅ Add build pipeline (if created)              |
+| Path filters                          | Optional – apply to `/src/*` or `/docs/*` only |
+
+👉 Click Save at the bottom.
+
+✅ Now PRs to master must meet the rules above before merging.
+
+🔐 Part 2: Apply Branch Security
+
+🔹 Step 1: Open Branch Security Settings
+Still on the master branch, click ⋮ → Select Branch security
+
+🔹 Step 2: Configure Permissions
+You’ll see roles like Project Administrators, Contributors, etc.
+👉 For Contributors:
+| Permission        | Action         |
+| ----------------- | -------------- |
+| Contribute    | ❌ Deny         |
+| Force push    | ❌ Deny         |
+| Create branch | Optional: Deny |
+
+Click Save changes
+👉 For Project Administrators:
+| Permission        | Action  |
+| ----------------- | ------- |
+| Contribute    | ✅ Allow |
+| Force push    | ✅ Allow |
+| Create branch | ✅ Allow |
+
+Click Save changes
+
+🧪 Verification Checklist
+| Check                           | How to verify                                |
+| ------------------------------- | -------------------------------------------- |
+| Branch policy works             | Try to merge a PR → needs review/build       |
+| Contributor cannot push         | Try push from contributor account → ❌ denied |
+| Admin can push                  | Push as admin → ✅ allowed                    |
+| Policy triggers build or review | PR triggers pipeline/review step ✅           |
+

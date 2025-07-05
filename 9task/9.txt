@@ -1,0 +1,76 @@
+Task: Apply security on branches so that contributors can create a pull request but cannot directly merge code to master.
+
+🎯 Objective
+| Role              | Action                          | Permission |
+| ----------------- | ------------------------------- | ---------- |
+| Contributors  | Create PR to `master`           | ✅ Allowed  |
+| Contributors  | Push/Merge directly to `master` | ❌ Denied   |
+| Project Admin | Full access                     | ✅ Allowed  |
+
+🔹 Step 1: Go to Repos > Branches
+In Azure DevOps, go to your Project
+
+Click on the left menu:
+Repos > Branches
+
+
+🔹 Step 2: Locate the master Branch
+Find the branch named master (or main if you're using that)
+
+Hover over it, click the 3 dots (…)
+
+Select Branch security
+
+🔹 Step 3: Set Permissions for Contributors
+Now you’ll see the security settings for this branch.
+
+On the right, click Add user or group
+
+Search and add:
+Contributors
+
+Update permissions for Contributors like this:
+| Permission                             | Set To                |
+| -------------------------------------- | --------------------- |
+| Contribute                         | ❌ Deny                |
+| Contribute to pull request         | ✅ Allow               |
+| Create branch                      | ✅ Allow    (optional) |
+| Force push (rewrite history)       | ❌ Deny                |
+| Manage permissions                 | ❌ Not set             |
+| Bypass policies when pushing       | ❌ Deny                |
+| Bypass policies when completing PR | ❌ Deny                |
+
+📌 This setup ensures:
+
+Contributors can’t push directly
+
+But can contribute through PRs
+
+🔹 Step 4: Verify Project Administrators Can Push
+Back in Branch security, click Add user or group
+
+Add your admin user or group (e.g., Project Administrators)
+
+Set:
+| Permission                             | Set To  |
+| -------------------------------------- | ------- |
+| Contribute                         | ✅ Allow |
+| Bypass policies when pushing       | ✅ Allow |
+| Bypass policies when completing PR | ✅ Allow |
+
+🔹 Step 5: Save and Test
+Ask a test contributor to push → ❌ Should be rejected
+
+Ask them to create PR → ✅ Should work
+
+Admin can still push directly → ✅ Works
+
+🧪 Testing Flow (Verify Your Setup)
+| Action by Contributor    | Expected Outcome |
+| ------------------------ | ---------------- |
+| Git push to `master`     | ❌ Rejected       |
+| Create PR to `master`    | ✅ Allowed        |
+| Admin pushes to `master` | ✅ Allowed        |
+
+
+
