@@ -1,0 +1,79 @@
+Task: Apply branch policies such that only the project administrator can access the master branch; contributors cannot.
+
+✅ Goal:
+Restrict the master branch so:
+
+✅ Only Project Admins can push changes.
+
+❌ Contributors (e.g., Developers group) cannot push or create pull requests directly to master.
+
+
+🟢 1. Go to Your Azure DevOps Project
+Sign in to https://dev.azure.com.
+
+Click your organization > select your project (e.g., UserGroupsDemo).
+
+🟢 2. Open Repos > Branches
+On the left side menu, click Repos.
+
+Then click Branches.
+
+Look for the master branch (or main, depending on naming).
+
+Hover over the master branch and click the 3 dots (...) > Branch policies.
+
+🟢 3. Set Branch Security
+On the Branch Policies page, scroll down and click Security.
+
+You’ll see a list of groups like:
+
+Project Administrators
+
+Contributors
+
+Readers
+
+[Any custom group]
+
+🟢 4. Deny Access to Contributors
+Click on Contributors.
+
+Find these permissions:
+
+Contribute → set to Deny
+
+Force push (rewrite history & delete) → Deny
+
+Create branch → optional, deny if needed
+
+Click Save changes.
+
+🔒 Now Contributors cannot push to master or create pull requests into it.
+
+🟢 5. Confirm Admins Can Access
+Go back to Branch security.
+
+Click on Project Administrators.
+
+Make sure:
+
+Contribute → Allow
+
+Force push → (can be set to Not set or Allow)
+
+Save if needed
+
+
+🧪 6. Test the Permissions (Verify)
+Try to log in as a Contributor group user (or another test account).
+
+Open the repo, go to the master branch.
+
+Try to edit a file or push changes via Git:
+
+❌ It will say permission denied.
+
+Try the same as an Admin:
+
+✅ Changes will go through.
+

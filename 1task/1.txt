@@ -1,0 +1,94 @@
+Task: Create a project with different user groups and implement group policies.
+
+✅ Prerequisites
+You must have an Azure DevOps account: https://dev.azure.com
+
+You must be an Organization Owner or Project Admin to manage users and permissions.
+
+🟢 Step 1: Sign in to Azure DevOps
+Go to: https://dev.azure.com
+
+Sign in with your Microsoft account.
+
+🟢 Step 2: Create a New Project
+On the left, click on “New Project”.
+
+Fill in the form:
+
+Project name: e.g., UserGroupsDemo
+
+Visibility: Private
+
+Leave other options as default
+
+Click Create.
+
+🟢 Step 3: Go to Project Settings
+Once the project is created, scroll to the bottom left.
+
+Click Project settings.
+
+🟢 Step 4: Create User Groups
+In Project Settings, go to Permissions > Create a custom group.
+
+Click on New Group:
+
+Group Name: e.g., Developers, Testers, Admins
+
+Description: e.g., Group for development team
+
+Click Create
+
+Repeat this step to create all required groups.
+
+🟢 Step 5: Add Users to Groups
+Go to Organization Settings (top right gear icon).
+
+Under Users, click + Add users.
+
+Enter the email(s) of users (can be dummy/test accounts if you're practicing).
+
+Choose their access level (Basic/Stakeholder).
+
+After adding users:
+
+Go to Project Settings > Permissions
+
+Select your group (e.g., Developers)
+
+Click Members > Add
+
+Select users to add to that group
+
+
+🟢 Step 6: Set Group Policies (Permissions)
+In Project Settings > Permissions, click on the group (e.g., Testers)
+
+You’ll see a list of permission settings (like Read, Edit, Delete).
+
+Adjust permissions:
+
+For Testers, maybe allow View work items, but deny Edit code
+
+For Developers, allow Contribute to repos
+
+For Admins, allow full control
+
+To change permission:
+
+Click the dropdown next to the permission → Select Allow or Deny
+
+🟢 Step 7: Verify Policies
+Log in as one of the users you added (or ask your friends to try if they were added).
+
+Try to access repos, boards, pipelines, etc.
+
+Confirm the permissions match the policy (e.g., testers can’t edit code).
+
+🧪 Example Verification Scenario
+| Group      | Test User Email                                   | Can View Code | Can Edit Code | Can Create Work Item      |
+| ---------- | ------------------------------------------------- | ------------- | ------------- | ------------------------- |
+| Developers | [devuser@gmail.com](mailto:devuser@gmail.com)     | ✅             | ✅             | ✅                         |
+| Testers    | [agarwalamish824@gmail.com](mailto:agarwalamish824@gmail.com)   | ✅ (optional)  | ❌             | ✅ or ❌ (based on setting) |
+| Admins     | [adminuser@gmail.com](mailto:adminuser@gmail.com) | ✅             | ✅             | ✅                         |
+

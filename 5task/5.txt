@@ -1,0 +1,75 @@
+Task: Apply a pull request.
+
+✅ Prerequisites
+You must have:
+
+A project in Azure DevOps
+
+A repository with at least two branches (master and a feature branch)
+
+Some code changes in the feature branch
+
+🔹 Step 1: Go to Azure DevOps Repos
+Visit: https://dev.azure.com
+
+Select your Organization → your Project
+
+On the left, go to Repos > Files
+
+
+🔹 Step 2: Create a Feature Branch (if not already done)
+In Repos > Files, make sure you're on master
+
+Click the Branch dropdown → Select + New branch
+
+Name it feature-01 (or any name)
+
+Set source branch as master
+
+Click Create branch
+
+🔹 Step 3: Make Code Changes in the New Branch
+While in the new branch (feature-01), select a file (e.g., README.md)
+
+Click Edit → Make a small change (e.g., add your name)
+
+Click Commit → Add a message like “Updated README”
+
+🔹 Step 4: Create a Pull Request
+After committing, you'll see a banner: “Create a pull request” – click it
+OR go to Repos > Pull requests > New pull request
+
+Set the following:
+
+Source branch: feature-01
+
+Target branch: master
+
+Add a title and description
+
+Optionally, add reviewers (e.g., teammates)
+
+Click Create
+
+🔹 Step 5: Complete the Pull Request
+Wait for any build validation to complete (if configured)
+
+Click Complete (or Approve > Complete if reviews are enabled)
+
+You can:
+
+Choose Squash commit or Rebase
+
+Delete source branch (optional)
+
+Click Complete merge
+
+✅ Your changes are now merged into master.
+
+🧪 Verification Checklist
+| Step             | What to Check                               |
+| ---------------- | ------------------------------------------- |
+| ✅ Branch Created | `feature-01` appears in branch list         |
+| ✅ Changes Made   | File changes show up in diff view           |
+| ✅ PR Created     | Pull Request shows in Repos > Pull Requests |
+| ✅ PR Merged      | Code changes appear in `master` branch      |

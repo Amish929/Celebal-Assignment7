@@ -1,0 +1,122 @@
+Task: Apply branch filters and path filters.
+
+🎯 Goal
+✅ Use branch filters and path filters to:
+
+Control when branch policies (like requiring PR reviews or builds) apply
+
+Apply policies only to certain branches or certain folders/files
+
+🧠 Key Concepts
+| Term              | Meaning                                                                  |
+| ----------------- | ------------------------------------------------------------------------ |
+| Branch Filter | Specifies which branches the policy applies to (e.g., only `master`) |
+| Path Filter   | Specifies which files/folders inside the branch the policy affects   |
+
+🔹 Step 1: Open Your Azure DevOps Project
+Visit https://dev.azure.com
+
+Select your organization and project
+
+🔹 Step 2: Navigate to Branch Policies
+Go to Repos > Branches
+
+Hover over the target branch (e.g., master) and click ⋮ (3 dots) → Branch policies
+
+🔹 Step 3: Add a Policy (if needed)
+You can add policies like:
+
+Require a minimum number of reviewers
+
+Build validation
+
+Click + Add build policy (or edit an existing one) to apply filters.
+
+🔹 Step 4: Apply Branch Filters
+When editing or creating a build validation policy:
+
+Scroll to "Apply this policy to"
+
+Select:
+
+All branches
+
+Specific branches → Click + and type a pattern, e.g.:
+
+master
+
+feature/* (all branches that start with feature/)
+
+Click Save
+
+🔹 Step 5: Apply Path Filters
+In the same build validation policy section, scroll to Path filters
+
+Click + Add a path filter
+
+Type file or folder paths:
+
+Include only files: /src/*
+
+Exclude files: Add a minus sign, e.g., - /docs/*
+
+Click Save
+
+✔ This means the policy will only trigger if changes are made to the specified files/folders.
+
+
+🧪 Step 6: Verify the Filters
+✅ Test Branch Filters
+Make a pull request from a branch that matches the filter (e.g., feature/login)
+
+You should see the policy enforced (e.g., build triggered, review required)
+
+Try again from a branch that does not match (e.g., hotfix/bug1)
+
+Policy should not be enforced
+
+✅ Test Path Filters
+Make a change inside /src/ and push → policy should trigger
+
+Make a change in /docs/ (if excluded) → policy won’t trigger
+
+✅ What to Select in Build Validation
+
+🟢 Step 1: Go to Repos > Branches
+In your Azure DevOps project:
+
+Click on Repos → Branches
+
+Find your target branch (e.g., master)
+
+Click ⋮ (3 dots) → Branch Policies
+
+🟢 Step 2: Add Build Validation
+Scroll to Build Validation
+
+Click + Add build policy
+
+
+🟢 Step 3: Fill in Build Validation Settings
+
+| Field                  | What to Select                                                                                                                                             |
+| ---------------------- | ----------------------------------------------------------------------------------------------------- |
+| Build pipeline    | ✅ Select your existing pipeline (e.g., `CI-Pipeline`, `Build-App`, etc.) <br> If you don't have one, create a basic pipeline from Pipelines > New pipeline |
+| Path filters       | Optional. Add paths (e.g., `/src/*`) if you want to trigger only on changes to specific files                                                              |
+| Trigger type       | Keep it as Automatic (recommended)                                                                                                                     |
+| Policy requirement | Choose: <br> 🔘 Required – PR cannot be completed unless the build passes                                                                              |
+| Display name       | You can leave it default or customize it (e.g., “Run Build Before Merge”)                                                                                  |
+| Build expiration   | Optional. Usually leave as default unless you want to auto-expire stale builds                                                                             |
+
+🧪 Step 4: Verify
+Create or update a pull request to the protected branch
+
+It should automatically trigger the build
+
+You’ll see a status like:
+
+🟡 “Build in progress…”
+
+✅ “Build succeeded” → You can complete the PR
+
+❌ “Build failed” → PR is blocked from merging.

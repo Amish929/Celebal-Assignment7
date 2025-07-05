@@ -1,0 +1,88 @@
+Task: Apply branch security and locks.
+
+🎯 Objective:
+✅ Apply branch security to control who can make changes
+🔒 Apply branch locks to prevent all direct changes
+
+
+🔧 Step-by-Step Guide
+🟢 Step 1: Open Your Azure DevOps Project
+Go to https://dev.azure.com
+
+Select your organization and project
+
+🟢 Step 2: Go to Repos → Branches
+In the left sidebar, click on Repos
+
+Then click on Branches
+
+Locate the branch you want to secure (usually master or main)
+
+Hover over it and click the 3 dots (⋮) → Select Branch security
+
+
+🟢 Step 3: Apply Branch Security
+In the Branch Security screen, you'll see a list of groups and users (e.g., Project Administrators, Contributors)
+
+Choose the group (e.g., Contributors)
+
+Set these permissions:
+
+Contribute → ❌ Deny
+
+Force push (rewrite history & delete) → ❌ Deny
+
+Create branch → Optional: Deny if needed
+
+Now choose Project Administrators
+
+✅ Contribute → Allow
+
+✅ Force push → Allow
+
+✅ Create branch → Allow
+
+Click Save changes
+
+✅ This controls who can push/edit/delete the branch.
+
+🔒 Step 4: Lock the Branch
+Go back to Repos > Branches
+
+Find the branch again (master)
+
+Click the 3 dots (⋮) → Select Lock
+
+Confirm the lock
+
+🔒 This will:
+
+Prevent all users (even Admins) from pushing changes directly
+
+Only allow merging through Pull Requests (if policies allow)
+
+You’ll see a lock icon 🔒 beside the branch name
+
+🧪 Step 5: Verify
+✅ Test as Contributor:
+Try pushing to the branch via Git or edit in the portal
+
+❌ You’ll get an error: branch is locked or permission denied
+
+✅ Test as Admin:
+Even Admins cannot directly push when branch is locked
+
+Only merge via Pull Requests, depending on your policy.
+
+
+🟢Merge via Pull Request (Optional Verification)
+If branch policies allow PRs:
+
+As Admin, create a new branch (feature/test-lock)
+
+Make some changes and push it
+
+Open a Pull Request to master
+
+If policies allow, merge it — this proves lock does not block PR merges.
+
